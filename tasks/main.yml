@@ -15,7 +15,7 @@
 - cron: special_time=daily state=present user=www-data name="acme" job="/usr/bin/acmetool --batch reconcile"
 
 - include_tasks: ct.yml
-  when: ct
+  when: ct_submit
 
 - include_tasks: redir.yml
-  when: redirector
+  when: acme_redirector

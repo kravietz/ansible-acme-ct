@@ -1,12 +1,12 @@
 ---
 - template: src=templates/josif/acme.conf dest=/etc/init/acme.conf
-  when: acme_redirector and ansible_service_mgr != 'systemd'
+  when: ansible_service_mgr != 'systemd'
 
 - service: name=acme enabled=yes state=started
-  when: acme_redirector and ansible_service_mgr != 'systemd'
+  when: ansible_service_mgr != 'systemd'
 
 - template: src=templates/acme.service dest=/etc/systemd/system/acme.service
-  when: acme_redirector and ansible_service_mgr == 'systemd'
+  when: ansible_service_mgr == 'systemd'
 
 - systemd: name=acme enabled=yes state=started daemon_reload=yes
-  when: acme_redirector and ansible_service_mgr == 'systemd'
+  when: ansible_service_mgr == 'systemd'
