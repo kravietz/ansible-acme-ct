@@ -1,22 +1,31 @@
 Role Name
 =========
 
-A brief description of the role goes here.
-
-Requirements
-------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Ansible role to install acmetool redirector with Certificate Transparency hooks
 
 Role Variables
 --------------
+Default settings shown below can be overriden on group or host level.
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+    acme_redirector: true
 
-Dependencies
-------------
+Is ACME redirector enabled? This `acmetool` process will listen on `80/tcp` for any incoming connections and redirect them to the `https` equivalent and transparently handle all incoming ACME authorisation requests.
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+    ct_submit: true
+
+Should we publish Certificate Transparency files on certificate renewals?
+
+    ct_logs:
+    - ct.googleapis.com/pilot
+    - ctlog.wosign.com
+    - ctlog.api.venafi.com
+
+The list of CT log servers for publishing.
+
+    ct_submit_deb: "https://github.com/kravietz/ansible-acme-ct/raw/master/files/ct-submit_1.1.2-1_amd64.deb"
+
+The location of `ct-submit` tool DEB file.
+
 
 Example Playbook
 ----------------
@@ -25,7 +34,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+      - kravietz.acme-ct
 
 License
 -------
@@ -35,4 +44,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Pawel Krawczyk https://keybase.io/kravietz
