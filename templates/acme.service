@@ -1,0 +1,13 @@
+[Unit]
+Description=ACME Redirector
+After=network.target auditd.service
+
+[Service]
+ExecStart=/usr/bin/acmetool redirector --service.daemon --service.uid=www-data --xlog.syslog --challenge-gid=www-data
+KillMode=process
+Restart=on-failure
+Type=notify
+
+[Install]
+WantedBy=multi-user.target
+Alias=acme.service

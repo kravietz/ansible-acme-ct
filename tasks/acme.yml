@@ -1,0 +1,21 @@
+# vim:ft=ansible:
+---
+- apt_repository: repo='ppa:hlandau/rhea'
+
+- apt: name=acmetool state=present
+
+- file: dest=/var/lib/acme state=directory owner=www-data group=www-data recurse=yes
+
+- file: dest=/var/run/acme state=directory recurse=yes owner=www-data group=www-data
+
+- file: dest=/var/lib/acme/conf state=directory
+
+- copy: src=templates/acme.target dest=/var/lib/acme/conf/target
+
+- cron: special_time=daily state=present user=www-data name="acme" job="/usr/bin/acmetool --batch reconcile"
+
+- include_tasks: ct.yml
+  when: ct
+
+- include_tasks: redir.yml
+  when: redirector

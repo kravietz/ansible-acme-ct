@@ -1,0 +1,7 @@
+- apt: deb={{ct_submit_deb}}
+
+- file: dest=/usr/lib/acme/hooks state=directory
+
+- copy: src=templates/ct-hook.sh dest=/usr/lib/acme/hooks/ct-hook.sh
+
+- file: dest=/usr/lib/acme/hooks/ct-hook.sh mode=0755
