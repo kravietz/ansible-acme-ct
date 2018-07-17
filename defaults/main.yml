@@ -5,6 +5,6 @@ ct_submit: true
 
 ct_logs:
 - ct.googleapis.com/pilot
-- ctlog.api.venafi.com
+- ct.ws.symantec.com
 
 ct_submit_deb: "https://github.com/kravietz/ansible-acme-ct/raw/master/files/ct-submit_1.1.2-1_amd64.deb"
